@@ -7,6 +7,7 @@ import { addTimeStamp, requestLogger } from "./middlewares/customMiddleware.js";
 // import { createBasicRateLimiter } from "./middlewares/rateLimit.js";
 // import { urlVersioning } from "./middlewares/apiVersioning.js";
 import { globalErrorHandler } from "./middlewares/errorHandler.js";
+import { configureCors } from "../config/corsConfig.js";
 configDotenv();
 
 const app = express();
@@ -18,7 +19,7 @@ app.use(addTimeStamp);
 
 //CORS & Rate limiting
 
-// app.use(configureCors());
+app.use(configureCors());
 // app.use(createBasicRateLimiter(100, 15 * 60 * 1000)); //100 request per 15 minutes
 
 app.use(express.json());
