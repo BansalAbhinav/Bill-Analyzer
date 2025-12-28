@@ -2,7 +2,7 @@
 
 button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 input:hover {
@@ -10,8 +10,12 @@ input:hover {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive adjustments */
@@ -19,11 +23,11 @@ input:hover {
   h1 {
     font-size: 2rem !important;
   }
-  
+
   h2 {
     font-size: 1.5rem !important;
   }
-  
+
   h3 {
     font-size: 1.25rem !important;
   }

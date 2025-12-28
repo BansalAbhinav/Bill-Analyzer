@@ -41,11 +41,13 @@ frontend/
 ## 🚀 Getting Started
 
 ### Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### Start Development Server
+
 ```bash
 npm run dev
 ```
@@ -55,22 +57,26 @@ The app runs on: `http://localhost:5173`
 ### Backend Connection
 
 Make sure your backend is running on `http://localhost:8000`:
+
 - See `backend/` folder for backend setup
 - Update `baseURL` in `src/services/api.js` if using different port
 
 ## 📄 Pages Overview
 
 ### Home (Public)
+
 - Hero section with app description
 - Feature highlights
 - Call-to-action buttons to login/register
 
 ### Login/Register (Public)
+
 - Simple forms with error handling
 - Redirects to `/upload` after successful login
 - Token automatically saved and used for protected routes
 
 ### Upload (Protected)
+
 - File upload form for PDF or images
 - Displays AI analysis results:
   - Overall summary and verdict
@@ -80,11 +86,13 @@ Make sure your backend is running on `http://localhost:8000`:
   - Patient recommendations
 
 ### History (Protected)
+
 - Grid of all past analyses
 - Shows filename, date, verdict
 - Delete and view detail buttons
 
 ### Analysis Detail (Protected)
+
 - Full analysis with formatted sections
 - Extracted text viewer (toggle)
 - Delete analysis option
@@ -93,17 +101,20 @@ Make sure your backend is running on `http://localhost:8000`:
 ## 🔧 Key Files
 
 ### `src/services/api.js`
+
 - Axios instance with automatic Bearer token
 - Endpoint constants
 - Error handling
 
 ### `src/context/AuthContext.jsx`
+
 - Global auth state (user, token, loading)
 - Functions: `login()`, `register()`, `logout()`
 - `isAuthenticated()` check
 - Auto-loads token from localStorage on mount
 
 ### `src/components/ProtectedRoute.jsx`
+
 - Wrapper for routes requiring auth
 - Redirects to `/login` if not authenticated
 - Shows loading state while checking auth
@@ -111,6 +122,7 @@ Make sure your backend is running on `http://localhost:8000`:
 ## 🎨 Styling
 
 Currently using inline styles for simplicity. You can:
+
 - Add shadcn/ui components (as mentioned)
 - Replace inline styles with CSS modules
 - Use Tailwind CSS
@@ -141,4 +153,3 @@ Currently using inline styles for simplicity. You can:
 4. **Add pagination** to history page
 5. **Export analysis** as PDF or JSON
 6. **Dark mode** support
-

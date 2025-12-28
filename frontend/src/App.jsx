@@ -1,16 +1,18 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { Layout } from './components/Layout';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { Layout } from "./components/Layout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { PublicRoute } from "./components/PublicRoute";
 
 // Import all pages
-import { HomePage } from './pages/HomePage';
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { UploadPage } from './pages/UploadPage';
-import { HistoryPage } from './pages/HistoryPage';
-import { AnalysisDetailPage } from './pages/AnalysisDetailPage';
+import { HomePage } from "./pages/HomePage";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { UploadPage } from "./pages/UploadPage";
+import { HistoryPage } from "./pages/HistoryPage";
+import { AnalysisDetailPage } from "./pages/AnalysisDetailPage";
+import { GoogleCallbackPage } from "./pages/GoogleCallbackPage";
 
 function App() {
   return (
@@ -23,9 +25,29 @@ function App() {
           <Routes>
             {/* Public Routes - Anyone can access */}
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            
+
+            {/* Auth Routes - Redirect to /upload if already logged in */}
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <RegisterPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/auth/google/callback"
+              element={<GoogleCallbackPage />}
+            />
+
             {/* Protected Routes - Require login */}
             <Route
               path="/upload"
@@ -51,7 +73,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            
+
             {/* 404 Not Found */}
             <Route
               path="*"
@@ -59,7 +81,9 @@ function App() {
                 <div style={styles.notFound}>
                   <h1>404 - Page Not Found</h1>
                   <p>The page you're looking for doesn't exist.</p>
-                  <a href="/" style={styles.link}>Go Home</a>
+                  <a href="/" style={styles.link}>
+                    Go Home
+                  </a>
                 </div>
               }
             />
@@ -72,13 +96,13 @@ function App() {
 
 const styles = {
   notFound: {
-    textAlign: 'center',
-    padding: '4rem 1rem',
+    textAlign: "center",
+    padding: "4rem 1rem",
   },
   link: {
-    color: '#007bff',
-    textDecoration: 'none',
-    fontSize: '1.1rem',
+    color: "#007bff",
+    textDecoration: "none",
+    fontSize: "1.1rem",
   },
 };
 

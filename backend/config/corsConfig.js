@@ -6,8 +6,9 @@ export const configureCors = () => {
       const allowedOrigins = [
         "http://localhost:3000", //local dev
         "http://localhost:5173", //vite dev server
-        "https://customdomain.com", //prd url
-      ];
+        process.env.FRONTEND_URL, //production frontend URL
+      ].filter(Boolean); // Remove undefined values
+
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         // !origin=> for postman
         callback(null, true); // giving permisson so that req can be allowed
