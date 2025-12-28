@@ -1,8 +1,10 @@
 // Simple API configuration
 // This file contains all backend URLs and API helper functions
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+// Remove trailing slash if present to prevent double slashes
+const API_BASE_URL = (
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+).replace(/\/$/, "");
 const API_VERSION = "/api/v1";
 const FULL_API_URL = `${API_BASE_URL}${API_VERSION}`;
 

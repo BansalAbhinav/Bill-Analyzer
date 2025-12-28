@@ -46,8 +46,9 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (email, password) => {
     try {
-      const API_URL =
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+      const API_URL = (
+        import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+      ).replace(/\/$/, "");
       const response = await fetch(`${API_URL}/api/v1/auth/signIn`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,8 +80,9 @@ export const AuthProvider = ({ children }) => {
   // Register function
   const register = async (userData) => {
     try {
-      const API_URL =
-        import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+      const API_URL = (
+        import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+      ).replace(/\/$/, "");
       const response = await fetch(`${API_URL}/api/v1/auth/signUp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

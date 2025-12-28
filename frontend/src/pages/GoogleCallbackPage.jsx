@@ -21,8 +21,9 @@ export const GoogleCallbackPage = () => {
         }
 
         // Send code to backend to exchange for token
-        const API_URL =
-          import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+        const API_URL = (
+          import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
+        ).replace(/\/$/, "");
         const response = await fetch(
           `${API_URL}/api/v1/auth/google/callback?code=${code}`,
         );

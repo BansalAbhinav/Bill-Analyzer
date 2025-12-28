@@ -76,7 +76,7 @@ export const LoginPage = () => {
 
         {/* Google Login Button */}
         <a
-          href={`${import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"}/api/v1/auth/google`}
+          href={`${(import.meta.env.VITE_API_BASE_URL || "http://localhost:3000").replace(/\/$/, "")}/api/v1/auth/google`}
           style={styles.googleButton}
         >
           <span style={styles.googleIcon}>G</span>

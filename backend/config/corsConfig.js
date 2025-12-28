@@ -6,8 +6,8 @@ export const configureCors = () => {
       const allowedOrigins = [
         "http://localhost:3000", //local dev
         "http://localhost:5173", //vite dev server
-        "https://bill-analyzer-dpgo.vercel.app/",
-        "https://bill-analyzer-rfzy.vercel.app/",
+        "https://bill-analyzer-dpgo.vercel.app",
+        "https://bill-analyzer-rfzy.vercel.app",
         process.env.FRONTEND_URL, //production frontend URL
       ].filter(Boolean); // Remove undefined values
 
