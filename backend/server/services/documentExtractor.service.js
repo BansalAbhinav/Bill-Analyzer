@@ -1,15 +1,47 @@
+import fs from "fs";
+import path from "path";
+import pdfPoppler from "pdf-poppler";
 import { extractTextFromImage } from "./imageOcr.service.js";
 import { extractTextFromPDF } from "./pdfText.service.js";
 
+const TEMP_DIR = "./temp";
+
 /**
- * OCR scanned PDF - Disabled for cloud deployment
- * pdf-poppler requires system binaries not available on Render/Vercel
+ * Convert PDF pages to images
+ */
+async function convertPdfToImages(pdfPath) {
+  if (!fs.existsSync(TEMP_DIR)) {
+    fs.mkdirSync(TEMP_DIR);
+  }
+
+  const options = {
+    format: "png",
+    out_dir: TEMP_DIR,
+    out_prefix: "page",
+    page: null,
+  };
+
+  await pdfPoppler.convert(pdfPath, options);
+}
+
+/**
+ * OCR scanned PDF
  */
 async function ocrScannedPDF(pdfPath) {
-  throw new Error(
-    "OCR for scanned PDFs is not supported in cloud environment. " +
-    "Please upload text-based PDFs or extract images first."
-  );
+  await convertPdfToImages(pdfPath);
+
+  const images = fs
+    .readdirSync(TEMP_DIR)
+    .filter((file) => file.endsWith(".png"));
+
+  let fullText = "";
+
+  for (const image of images) {
+    const text = await extractTextFromImage(path.join(TEMP_DIR, image));
+    fullText += "\n" + text;
+  }
+
+  return fullText.trim();
 }
 
 /**
