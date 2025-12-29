@@ -98,12 +98,12 @@ export async function googleCallbackHandle(req, res) {
       { expiresIn: "60m" },
     );
 
-    return res.status(200).json({
-      success: true,
-      accessToken,
-    });
+    // Redirect to frontend with token
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    return res.redirect(`${frontendUrl}/auth/google/callback?token=${accessToken}`);
   } catch (error) {
     console.error(error);
-    throw error;
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    return res.redirect(`${frontendUrl}/login?error=auth_failed`);
   }
 }

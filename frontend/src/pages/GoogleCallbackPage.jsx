@@ -10,62 +10,41 @@ export const GoogleCallbackPage = () => {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        // Get the authorization code from URL
+        // Get the token from URL
         const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get("code");
+        const token = urlParams.get("token");
 
-        console.log("Code from URL:", code);
+        console.log("Token from URL:", token);
 
-        if (!code) {
-          throw new Error("No authorization code found");
+        if (!token) {
+          throw new Error("No token found");
         }
 
-        // Send code to backend to exchange for token
-        const API_URL = (
-          import.meta.env.VITE_API_BASE_URL || "http://localhost:3000"
-        ).replace(/\/$/, "");
-        const response = await fetch(
-          `${API_URL}/api/v1/auth/google/callback?code=${code}`,
-        );
+        // Decode the JWT to get user info
+        const tokenParts = token.split(".");
+        const payload = JSON.parse(atob(tokenParts[1]));
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Backend error:", errorText);
-          throw new Error("Authentication failed");
-        }
+        console.log("Decoded JWT payload:", payload);
 
-        const result = await response.json();
-        console.log("Backend response:", result);
+        const userData = {
+          userId: payload.userId,
+          username: payload.username,
+          role: payload.role,
+        };
 
-        if (result.success && result.accessToken) {
-          // Decode the JWT to get user info
-          const tokenParts = result.accessToken.split(".");
-          const payload = JSON.parse(atob(tokenParts[1]));
+        console.log("Calling loginWithToken with:", userData);
 
-          console.log("Decoded JWT payload:", payload);
+        // Use AuthContext to login
+        loginWithToken(token, userData);
 
-          const userData = {
-            userId: payload.userId,
-            username: payload.username,
-            role: payload.role,
-          };
+        console.log("Login successful");
 
-          console.log("Calling loginWithToken with:", userData);
+        setStatus("Success! Redirecting...");
 
-          // Use AuthContext to login
-          loginWithToken(result.accessToken, userData);
-
-          console.log("Login successful");
-
-          setStatus("Success! Redirecting...");
-
-          // Small delay to ensure localStorage and state are synced
-          setTimeout(() => {
-            navigate("/upload", { replace: true });
-          }, 100);
-        } else {
-          throw new Error("Invalid response from server");
-        }
+        // Small delay to ensure localStorage and state are synced
+        setTimeout(() => {
+          navigate("/upload", { replace: true });
+        }, 100);
       } catch (error) {
         console.error("Google callback error:", error);
         setStatus(
