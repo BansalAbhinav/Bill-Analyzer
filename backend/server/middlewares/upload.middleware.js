@@ -1,5 +1,7 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+import os from "os";
 import { fileURLToPath } from "url";
 
 /**
@@ -9,11 +11,26 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /**
+ * Determine upload directory (use /tmp for serverless environments)
+ */
+const UPLOAD_DIR =
+  process.env.NODE_ENV === "production"
+    ? path.join(os.tmpdir(), "uploads")
+    : path.join(__dirname, "../uploads");
+
+/**
+ * Ensure upload directory exists
+ */
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
+
+/**
  * Where and how files are stored
  */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads"));
+    cb(null, UPLOAD_DIR);
   },
 
   filename: (req, file, cb) => {
@@ -45,3 +62,5 @@ export const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5 MB
   },
 });
+
+export { UPLOAD_DIR };

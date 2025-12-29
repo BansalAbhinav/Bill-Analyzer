@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { UPLOAD_DIR } from "../middlewares/upload.middleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +11,7 @@ const __dirname = path.dirname(__filename);
  * @param {number} hoursOld - Delete files older than this many hours (default: 24)
  */
 export const cleanupOldTextFiles = (hoursOld = 24) => {
-  const uploadsDir = path.join(__dirname, "../uploads/");
+  const uploadsDir = UPLOAD_DIR;
   const now = Date.now();
   const maxAge = hoursOld * 60 * 60 * 1000; // Convert hours to milliseconds
 
@@ -40,7 +41,7 @@ export const cleanupOldTextFiles = (hoursOld = 24) => {
  * @returns {string} - File content
  */
 export const readTextFile = (fileName) => {
-  const filePath = path.join(__dirname, "../uploads/", fileName);
+  const filePath = path.join(UPLOAD_DIR, fileName);
 
   if (!fs.existsSync(filePath)) {
     throw new Error("Text file not found");
