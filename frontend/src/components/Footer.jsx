@@ -11,7 +11,7 @@ export const Footer = () => {
             <span className="font-medium text-slate-900">Abhinav Bansal</span>
           </p>
           <a
-            href="https://github.com/BansalAbhinav/QuickLogo"
+            href="https://github.com/BansalAbhinav/Bill-Analyzer"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors duration-200"

@@ -34,7 +34,7 @@ export const HomePage = () => {
               </Link>
             ) : (
               <Link
-                to="/register"
+                to="/login"
                 className="inline-flex items-center gap-2 bg-white text-blue-700 px-7 py-3 rounded-lg text-base font-medium shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all"
               >
                 Get Started Free

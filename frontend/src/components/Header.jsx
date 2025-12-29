@@ -57,16 +57,16 @@ export const Header = () => {
             ) : (
               <div className="ml-4 flex items-center gap-2">
                 <Link
-                  to="/login"
+                  to= "/register"
                   className="px-4 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
                 >
-                  Login
+                  Sign Up 
                 </Link>
                 <Link
-                  to="/register"
+                  to="/login"
                   className="px-5 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
                 >
-                  Sign Up
+                  Login
                 </Link>
               </div>
             )}
