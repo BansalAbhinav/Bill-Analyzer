@@ -1,108 +1,158 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-// Header Component - Shows on all pages
 export const Header = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/");
+    setMobileMenuOpen(false);
   };
 
   return (
-    <header style={styles.header}>
-      <div style={styles.container}>
-        {/* Logo */}
-        <Link to="/" style={styles.logo}>
-          <h1>Bill Analyzer</h1>
-        </Link>
-
-        {/* Navigation */}
-        <nav style={styles.nav}>
-          <Link to="/" style={styles.link}>
-            Home
+    <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14 sm:h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-1.5 sm:gap-2 group">
+            <span className="text-xl sm:text-2xl">💊</span>
+            <span className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+              Bill Analyzer
+            </span>
           </Link>
 
-          {/* Show different links based on auth status */}
-          {isAuthenticated() ? (
-            <>
-              <Link to="/upload" style={styles.link}>
-                Upload Bill
-              </Link>
-              <span style={styles.userName}>{user?.username}</span>
-              <button onClick={handleLogout} style={styles.button}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" style={styles.link}>
-                Login
-              </Link>
-              <Link to="/register" style={styles.button}>
-                Sign Up
-              </Link>
-            </>
-          )}
-        </nav>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+            <Link
+              to="/"
+              className="px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors text-sm font-medium"
+            >
+              Home
+            </Link>
+
+            {isAuthenticated() ? (
+              <>
+                <Link
+                  to="/upload"
+                  className="px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors text-sm font-medium"
+                >
+                  Upload Bill
+                </Link>
+                <div className="ml-4 flex items-center gap-3">
+                  <span className="text-sm font-medium text-gray-700 px-3 py-1.5 bg-gray-50 rounded-md border border-gray-200">
+                    {user?.username}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="px-4 py-1.5 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors border border-red-200 hover:border-red-300"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="ml-4 flex items-center gap-2">
+                <Link
+                  to="/login"
+                  className="px-4 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-5 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {mobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div className="md:hidden pb-4 pt-2 space-y-1 border-t border-gray-100">
+            <Link
+              to="/"
+              className="block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors text-sm font-medium"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+
+            {isAuthenticated() ? (
+              <>
+                <Link
+                  to="/upload"
+                  className="block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors text-sm font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Upload Bill
+                </Link>
+                <div className="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 rounded-md border border-gray-200">
+                  {user?.username}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-3 py-2 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors border border-red-200 hover:border-red-300"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="block px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md transition-colors text-sm font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="block px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors text-center"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );
-};
-
-const styles = {
-  header: {
-    backgroundColor: "#ffffff",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-    padding: "1rem 0",
-    position: "sticky",
-    top: 0,
-    zIndex: 100,
-  },
-  container: {
-    maxWidth: "1200px",
-    margin: "0 auto",
-    padding: "0 1rem",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  logo: {
-    textDecoration: "none",
-    color: "#2563eb",
-    fontSize: "1.5rem",
-    fontWeight: "700",
-    letterSpacing: "-0.5px",
-  },
-  nav: {
-    display: "flex",
-    alignItems: "center",
-    gap: "1.5rem",
-  },
-  link: {
-    textDecoration: "none",
-    color: "#475569",
-    fontSize: "0.95rem",
-    fontWeight: "500",
-    transition: "color 0.2s",
-  },
-  userName: {
-    color: "#1e293b",
-    fontWeight: "600",
-  },
-  button: {
-    backgroundColor: "#2563eb",
-    color: "#fff",
-    border: "none",
-    padding: "0.5rem 1.25rem",
-    borderRadius: "6px",
-    cursor: "pointer",
-    textDecoration: "none",
-    fontSize: "0.95rem",
-    fontWeight: "600",
-    transition: "all 0.2s",
-  },
 };

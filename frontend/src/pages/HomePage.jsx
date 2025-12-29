@@ -7,106 +7,89 @@ export const HomePage = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div style={styles.container}>
+    <div className="w-full">
       {/* Hero Section */}
-      <section style={styles.hero}>
-        <h1 style={styles.title}>Analyze Your Hospital Bills with AI</h1>
-        <p style={styles.subtitle}>
-          Upload your medical bills and get instant AI-powered analysis to
-          understand charges, potential issues, and insurance coverage.
-        </p>
+      <section className="relative bg-gradient-to-br from-blue-600 to-indigo-700 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-5 leading-tight tracking-tight">
+              Analyze Your Hospital Bills with AI
+            </h1>
+            <p className="text-lg text-blue-100 mb-8 leading-relaxed">
+              Upload your medical bills and get instant AI-powered analysis to
+              understand charges, potential issues, and insurance coverage.
+            </p>
 
-        {/* CTA Button */}
-        {isAuthenticated() ? (
-          <Link to="/upload" style={styles.button}>
-            Upload Bill Now
-          </Link>
-        ) : (
-          <Link to="/register" style={styles.button}>
-            Get Started Free
-          </Link>
-        )}
+            {isAuthenticated() ? (
+              <Link
+                to="/upload"
+                className="inline-flex items-center gap-2 bg-white text-blue-700 px-7 py-3 rounded-lg text-base font-medium shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all"
+              >
+                <span>📤</span>
+                Upload Bill Now
+              </Link>
+            ) : (
+              <Link
+                to="/register"
+                className="inline-flex items-center gap-2 bg-white text-blue-700 px-7 py-3 rounded-lg text-base font-medium shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all"
+              >
+                Get Started Free
+              </Link>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}
-      <section style={styles.features}>
-        <h2>Why Use Bill Analyzer?</h2>
-        <div style={styles.featureGrid}>
-          <div style={styles.feature}>
-            <h3>🔍 Smart Analysis</h3>
-            <p>AI-powered detection of overcharges and billing errors</p>
-          </div>
-          <div style={styles.feature}>
-            <h3>💰 Save Money</h3>
-            <p>Identify potential insurance coverage issues</p>
-          </div>
-          <div style={styles.feature}>
-            <h3>📄 Easy Upload</h3>
-            <p>Support for PDF and image files</p>
-          </div>
-          <div style={styles.feature}>
-            <h3>⚡ Instant Results</h3>
-            <p>Get detailed analysis in seconds</p>
+      <section className="py-14 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-10">
+            Why Bill Analyzer?
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="group p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
+              <div className="text-3xl mb-3">🔍</div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Smart Analysis
+              </h3>
+              <p className="text-sm text-gray-600">
+                AI-powered detection of overcharges and billing errors
+              </p>
+            </div>
+            <div className="group p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
+              <div className="text-3xl mb-3">💰</div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Save Money
+              </h3>
+              <p className="text-sm text-gray-600">
+                Identify potential insurance coverage issues
+              </p>
+            </div>
+            <div className="group p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
+              <div className="text-3xl mb-3">📄</div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Easy Upload
+              </h3>
+              <p className="text-sm text-gray-600">
+                Support for PDF and image files
+              </p>
+            </div>
+            <div className="group p-6 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition-all">
+              <div className="text-3xl mb-3">⚡</div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Instant Results
+              </h3>
+              <p className="text-sm text-gray-600">
+                Get detailed analysis in seconds
+              </p>
+            </div>
           </div>
         </div>
       </section>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: "1000px",
-    margin: "0 auto",
-  },
-  hero: {
-    textAlign: "center",
-    padding: "4rem 1.5rem",
-    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    color: "#fff",
-    borderRadius: "0 0 30px 30px",
-  },
-  title: {
-    fontSize: "3rem",
-    marginBottom: "1rem",
-    color: "#fff",
-    fontWeight: "700",
-    letterSpacing: "-1px",
-  },
-  subtitle: {
-    fontSize: "1.25rem",
-    color: "rgba(255,255,255,0.95)",
-    marginBottom: "2rem",
-    lineHeight: "1.6",
-  },
-  button: {
-    display: "inline-block",
-    backgroundColor: "#fff",
-    color: "#667eea",
-    padding: "1rem 2.5rem",
-    borderRadius: "10px",
-    textDecoration: "none",
-    fontSize: "1.1rem",
-    fontWeight: "600",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
-    transition: "transform 0.2s",
-  },
-  features: {
-    padding: "4rem 1.5rem",
-  },
-  featureGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "2rem",
-    marginTop: "2rem",
-  },
-  feature: {
-    textAlign: "center",
-    padding: "2rem 1.5rem",
-    backgroundColor: "#fff",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-    transition: "transform 0.2s, box-shadow 0.2s",
-    color: "#1e293b",
-  },
 };
