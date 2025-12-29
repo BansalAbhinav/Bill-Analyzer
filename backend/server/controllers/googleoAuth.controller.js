@@ -27,7 +27,11 @@ export async function googleAuthStartHandler(req, res) {
     const url = client.generateAuthUrl({
       access_type: "offline",
       prompt: "consent",
-      scope: ["openid", "email", "profile"],
+      scope: [
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+        "openid",
+      ],
     });
 
     return res.redirect(url);
