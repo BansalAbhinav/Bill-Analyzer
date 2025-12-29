@@ -10,8 +10,6 @@ import { HomePage } from "./pages/HomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { UploadPage } from "./pages/UploadPage";
-import { HistoryPage } from "./pages/HistoryPage";
-import { AnalysisDetailPage } from "./pages/AnalysisDetailPage";
 import { GoogleCallbackPage } from "./pages/GoogleCallbackPage";
 
 function App() {
@@ -54,22 +52,6 @@ function App() {
               element={
                 <ProtectedRoute>
                   <UploadPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/history"
-              element={
-                <ProtectedRoute>
-                  <HistoryPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/analysis/:id"
-              element={
-                <ProtectedRoute>
-                  <AnalysisDetailPage />
                 </ProtectedRoute>
               }
             />

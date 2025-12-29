@@ -89,7 +89,8 @@ You will receive raw OCR text from a hospital bill.
 5. Severity must default to LOW unless multiple independent signals justify MEDIUM.
 6. If charges appear mathematically odd, assume hospital billing conventions or OCR issues first.
 7. If nothing suspicious is found, clearly say so.
-
+8.Respond ONLY with valid JSON.
+9.Do not include markdown, explanations, or code blocks.
 ---
 
 ### BILL TEXT:

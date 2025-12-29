@@ -72,12 +72,8 @@ export const endpoints = {
     register: "/auth/signUp",
   },
 
-  // Bill analysis endpoints
+  // Bill analysis endpoint
   bills: {
-    process: "/data/process", // Upload and analyze
-    getAll: "/data/analyses", // Get all analyses
-    getOne: (id) => `/data/analysis/${id}`, // Get one analysis
-    delete: (id) => `/data/analysis/${id}`, // Delete analysis
-    analytics: "/data/analytics", // Get statistics
+    process: "/data/process", // Upload and analyze (single endpoint)
   },
 };

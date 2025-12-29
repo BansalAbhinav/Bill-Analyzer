@@ -1,4 +1,0 @@
-pdfplumber
-pytesseract
-Pillow
-pydantic

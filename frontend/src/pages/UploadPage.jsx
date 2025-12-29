@@ -52,8 +52,8 @@ export const UploadPage = () => {
       // Send request to backend
       const response = await api.post(endpoints.bills.process, formData);
 
-      // Show results
-      setResult(response.data);
+      // Show results - backend returns { message, Data: { analysis, rawText } }
+      setResult(response.Data.analysis);
       setFile(null);
     } catch (err) {
       setError(err.message || "Failed to analyze bill");
@@ -114,26 +114,25 @@ export const UploadPage = () => {
           <h2>Analysis Results</h2>
 
           {/* Overall Summary */}
-          {result.analysis?.overall_summary && (
+          {result?.overall_summary && (
             <div style={styles.section}>
               <h3>📊 Overall Summary</h3>
               <p>
-                <strong>Verdict:</strong>{" "}
-                {result.analysis.overall_summary.verdict}
+                <strong>Verdict:</strong> {result.overall_summary.verdict}
               </p>
               <p>
                 <strong>Confidence:</strong>{" "}
-                {result.analysis.overall_summary.confidence_level}
+                {result.overall_summary.confidence_level}
               </p>
-              <p>{result.analysis.overall_summary.one_line_summary}</p>
+              <p>{result.overall_summary.one_line_summary}</p>
             </div>
           )}
 
           {/* Positive Points */}
-          {result.analysis?.positive_points?.length > 0 && (
+          {result?.positive_points?.length > 0 && (
             <div style={styles.section}>
               <h3>✅ Positive Points</h3>
-              {result.analysis.positive_points.map((point, index) => (
+              {result.positive_points.map((point, index) => (
                 <div key={index} style={styles.point}>
                   <strong>{point.title}</strong>
                   <p>{point.explanation}</p>
@@ -143,10 +142,10 @@ export const UploadPage = () => {
           )}
 
           {/* Potential Issues */}
-          {result.analysis?.potential_issues?.length > 0 && (
+          {result?.potential_issues?.length > 0 && (
             <div style={styles.section}>
               <h3>⚠️ Potential Issues</h3>
-              {result.analysis.potential_issues.map((issue, index) => (
+              {result.potential_issues.map((issue, index) => (
                 <div key={index} style={styles.issue}>
                   <strong>{issue.item_name}</strong>
                   <p>
@@ -163,10 +162,10 @@ export const UploadPage = () => {
           )}
 
           {/* Insurance Attention Items */}
-          {result.analysis?.insurance_attention_items?.length > 0 && (
+          {result?.insurance_attention_items?.length > 0 && (
             <div style={styles.section}>
               <h3>🏥 Insurance Coverage Notes</h3>
-              {result.analysis.insurance_attention_items.map((item, index) => (
+              {result.insurance_attention_items.map((item, index) => (
                 <div key={index} style={styles.point}>
                   <strong>{item.item_name}</strong>
                   <p>{item.reason}</p>
@@ -179,15 +178,13 @@ export const UploadPage = () => {
           )}
 
           {/* Final Advice */}
-          {result.analysis?.final_advice_for_patient?.length > 0 && (
+          {result?.final_advice_for_patient?.length > 0 && (
             <div style={styles.section}>
               <h3>💡 Recommendations</h3>
               <ul>
-                {result.analysis.final_advice_for_patient.map(
-                  (advice, index) => (
-                    <li key={index}>{advice}</li>
-                  ),
-                )}
+                {result.final_advice_for_patient.map((advice, index) => (
+                  <li key={index}>{advice}</li>
+                ))}
               </ul>
             </div>
           )}

@@ -32,9 +32,6 @@ export const Header = () => {
               <Link to="/upload" style={styles.link}>
                 Upload Bill
               </Link>
-              <Link to="/history" style={styles.link}>
-                History
-              </Link>
               <span style={styles.userName}>{user?.username}</span>
               <button onClick={handleLogout} style={styles.button}>
                 Logout
