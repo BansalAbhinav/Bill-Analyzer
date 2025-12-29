@@ -27,7 +27,7 @@ app.use(express.json());
 // app.use(urlVersioning("v1"));
 
 //Routes
-app.use("/",(req,res)=>{
+app.use("/test",(req,res)=>{
   res.status(200).json({
     message:"Backend is running!!☆*: .｡. o(≧▽≦)o .｡.:*☆"
   })
