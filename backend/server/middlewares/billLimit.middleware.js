@@ -6,8 +6,11 @@ import { BillAnalysis } from "../models/bill.models.js";
  */
 export const checkBillLimit = async (req, res, next) => {
   try {
-    // Get user ID from auth middleware
-    const userId = req.user?.userId || req.user?._id;
+    // Get user ID from auth middleware (JWT decoded token has userId property)
+    const userId = req.user?.userId;
+
+    console.log("User from auth middleware:", req.user);
+    console.log("Extracted userId:", userId);
 
     if (!userId) {
       return res.status(401).json({

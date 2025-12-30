@@ -10,8 +10,8 @@ export const authMiddleware = (req, res, next) => {
   //decode the token
   try {
     const decodeToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    console.log(decodeToken);
-    req.userInfo = decodeToken;
+    console.log("Decoded token:", decodeToken);
+    req.user = decodeToken; // Set as req.user for consistency
     next();
   } catch (error) {
     return next(new APIError("Access Denied! You are not Authorized", 403));

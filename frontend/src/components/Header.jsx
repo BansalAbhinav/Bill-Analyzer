@@ -31,19 +31,22 @@ export const Header = () => {
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14 sm:h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-1.5 sm:gap-2 group">
-            <span className="text-xl sm:text-2xl">💊</span>
-            <span className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-              Bill Analyzer
-            </span>
+    <>
+      {/* Server Status Banner - Full Width */}
+      
+      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-1.5 sm:gap-2 group">
+              <span className="text-xl sm:text-2xl">💊</span>
+              <span className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                Bill Analyzer
+              </span>
       <ServerStatusBanner status={serverStatus} />
-          </Link>
- {/* Server Status Banner */}
-          {/* Desktop Navigation */}
+            </Link>
+
+            {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             <Link
               to="/"
@@ -172,5 +175,6 @@ export const Header = () => {
         )}
       </div>
     </header>
+    </>
   );
 };

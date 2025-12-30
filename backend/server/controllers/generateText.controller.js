@@ -9,7 +9,14 @@ export const processDocument = async (req, res) => {
     }
 
     const { path, mimetype, originalname } = req.file;
-    const userId = req.user?.userId || req.user?._id;
+    const userId = req.user?.userId; // JWT has userId property
+
+    console.log("User from req:", req.user);
+    console.log("Extracted userId:", userId);
+
+    if (!userId) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
 
     // Extract text from document
     const { text: extractedText, via: extractedVia } = await extractText(
