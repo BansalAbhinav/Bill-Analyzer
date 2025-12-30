@@ -4,6 +4,13 @@ AI-powered tool to analyze hospital bills and identify potential overcharges or 
 
 **Live Demo:** https://carebill.vercel.app/
 
+
+# Demo
+
+https://github.com/user-attachments/assets/e1b54cfa-ab58-4302-a88b-0aa8f6c0fc94
+
+
+
 ## What it does
 
 Upload your medical bill (PDF or image) and get instant AI-powered analysis including:
