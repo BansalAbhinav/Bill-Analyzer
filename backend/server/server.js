@@ -61,7 +61,7 @@ app.use(globalErrorHandler);
     
     // Mark server as ready after DB connection and service initialization
     serverStatus = "ready";
-    console.info("✅ Server fully initialized - status: ready");
+    console.info("Server is Running - status: ready");
     app.listen(PORT, () => console.info(`Server listening on ${PORT}`));
   } catch (error) {
     console.error("Failed to start server due to DB connection error:", error);

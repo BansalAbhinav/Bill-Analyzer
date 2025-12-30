@@ -11,7 +11,7 @@ const performCleanup = async () => {
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
     console.log(
-      `🧹 Running bill cleanup... Deleting bills older than ${twentyFourHoursAgo.toISOString()}`,
+      `Running bill cleanup... Deleting bills older than ${twentyFourHoursAgo.toISOString()}`,
     );
 
     // Find and delete bills older than 24 hours
@@ -21,10 +21,10 @@ const performCleanup = async () => {
 
     if (result.deletedCount > 0) {
       console.log(
-        `✅ Cleanup complete: ${result.deletedCount} bills deleted from database`,
+        `Cleanup complete: ${result.deletedCount} bills deleted from database`,
       );
     } else {
-      console.log("✅ Cleanup complete: No old bills to delete");
+      console.log("Cleanup complete: No old bills to delete");
     }
 
     return result.deletedCount;
@@ -50,7 +50,7 @@ export const startBillCleanupJob = () => {
  * Critical for Render free tier where server sleeps
  */
 export const runStartupCleanup = async () => {
-  console.log("🚀 Running startup cleanup check...");
+  console.log("Running startup cleanup check...");
   await performCleanup();
 };
 
