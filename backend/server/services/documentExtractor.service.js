@@ -7,7 +7,8 @@ import { extractTextFromPDF } from "./pdfText.service.js";
 export async function extractText(filePath, mimeType) {
   // IMAGE
   if (mimeType.startsWith("image/")) {
-    return await extractTextFromImage(filePath);
+    const text = await extractTextFromImage(filePath);
+    return { text, via: "ocr" };
   }
 
   // PDF
@@ -15,14 +16,14 @@ export async function extractText(filePath, mimeType) {
     const text = await extractTextFromPDF(filePath);
 
     if (text.length > 50) {
-      return text; // text-based PDF
+      return { text, via: "text" }; // text-based PDF
     }
 
     // For scanned PDFs, return a message or throw an error
     // In a serverless environment, you'd typically use an external OCR API
     // like Google Cloud Vision, AWS Textract, or Azure Computer Vision
     throw new Error(
-      "This PDF appears to be scanned. Please upload an image file instead, or use a text-based PDF."
+      "This PDF appears to be scanned. Please upload an image file instead, or use a text-based PDF.",
     );
   }
 

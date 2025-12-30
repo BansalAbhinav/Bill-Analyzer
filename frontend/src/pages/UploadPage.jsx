@@ -63,6 +63,35 @@ export const UploadPage = () => {
     }
   };
 
+// Loading Messages
+  const LoadingMessages = () => {
+  const [messageIndex, setMessageIndex] = React.useState(0);
+
+  const messages = [
+    "📤 Processing your data...",
+    "✅ Data has been extracted",
+    "🤖 AI is analyzing your report...",
+    "⚠️ Note: AI can make mistakes. Please verify important information."
+  ];
+
+  React.useEffect(() => {
+    if (messageIndex < messages.length - 1) {
+      const timer = setTimeout(() => {
+        setMessageIndex(messageIndex + 1);
+      }, 3000); // Change message every 2 seconds
+
+      return () => clearTimeout(timer);
+    }
+  }, [messageIndex]);
+
+  return (
+    <div className="mt-4">
+      <p className="text-lg font-semibold text-blue-900 transition-opacity duration-300">
+        {messages[messageIndex]}
+      </p>
+    </div>
+  );
+};
   return (
     <div className="w-full min-h-screen">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -177,12 +206,7 @@ export const UploadPage = () => {
                 wrapperStyle={{}}
                 wrapperClass="dna-wrapper"
               />
-              <p className="text-lg font-semibold text-blue-900 mb-2 mt-4">
-                Extracting text and analyzing with AI...
-              </p>
-              <p className="text-sm text-blue-700">
-                This may take 5-10 seconds
-              </p>
+               <LoadingMessages />
             </div>
           </div>
         )}

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { ServerStatusBanner } from "./ServerStatusBanner";
+import { checkServerHealth } from "../services/api";
 export const Header = () => {
   const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
@@ -12,7 +13,23 @@ export const Header = () => {
     navigate("/");
     setMobileMenuOpen(false);
   };
+ const [serverStatus, setServerStatus] = useState("warming");
 
+  useEffect(() => {
+    // Check server health immediately on mount
+    const checkHealth = async () => {
+      const { status } = await checkServerHealth();
+      setServerStatus(status);
+    };
+
+    checkHealth();
+
+    // Poll every 7 seconds
+    const intervalId = setInterval(checkHealth, 7000);
+
+    // Cleanup on unmount
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,8 +40,9 @@ export const Header = () => {
             <span className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
               Bill Analyzer
             </span>
+      <ServerStatusBanner status={serverStatus} />
           </Link>
-
+ {/* Server Status Banner */}
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             <Link

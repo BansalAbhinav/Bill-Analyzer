@@ -77,3 +77,14 @@ export const endpoints = {
     process: "/data/process", // Upload and analyze (single endpoint)
   },
 };
+
+// Health check endpoint (direct to base URL, not versioned)
+export const checkServerHealth = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/health`);
+    if (!response.ok) throw new Error("Health check failed");
+    return await response.json();
+  } catch (error) {
+    return { status: "warming" }; // Default to warming if can't connect
+  }
+};
